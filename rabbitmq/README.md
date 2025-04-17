@@ -1,5 +1,20 @@
 # RabbitMQ
 
+## Helm Repo Add Bitnami
+```
+ helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+## Helm Repo Update
+```
+ helm repo update
+```
+
+## Helm Copy values.yaml
+```
+ helm show values bitnami/rabbitmq > .\values.yaml
+```
+
 ## User Password
 
 ```
@@ -32,7 +47,7 @@ extraPlugins: "rabbitmq_auth_backend_ldap rabbitmq_shovel rabbitmq_shovel_manage
   enabled: true
 ```
 
-## Helm
+## Helm Upgrade/Install
 ```
-helm upgrade --install rabbitmq bitnami/rabbitmq --version 15.5.3 -f values.yaml
+ helm upgrade --install rabbitmq bitnami/rabbitmq --version 15.5.3 -f values.yaml
 ```
