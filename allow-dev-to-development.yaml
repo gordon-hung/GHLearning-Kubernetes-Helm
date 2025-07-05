@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dev-to-development
+  namespace: development  # NetworkPolicy 放在 development 中
+spec:
+  podSelector: {}  # 適用於 dev 中的所有 Pod
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: dev  # 允許來自 dev 的流量

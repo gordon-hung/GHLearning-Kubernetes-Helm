@@ -1,0 +1,81 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: kubernetes-cluster
+networking:
+  kubeProxyMode: "nftables"
+# One control plane node and three "workers".
+#
+# While these will not add more real compute capacity and
+# have limited isolation, this can be useful for testing
+# rolling updates etc.
+#
+# The API-server and other control plane components will be
+# on the control-plane node.
+#
+# You probably don't need this unless you are testing Kubernetes itself.
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 5000
+    hostPort: 5000
+    # optional: set the bind address on the host
+    # 0.0.0.0 is the current default
+    listenAddress: "127.0.0.1"
+    # optional: set the protocol to one of TCP, UDP, SCTP.
+    # TCP is the default
+    protocol: TCP
+  - containerPort: 5001
+    hostPort: 5001
+    # optional: set the bind address on the host
+    # 0.0.0.0 is the current default
+    listenAddress: "127.0.0.1"
+    # optional: set the protocol to one of TCP, UDP, SCTP.
+    # TCP is the default
+    protocol: TCP
+  image: kindest/node:v1.33.1
+  labels:
+    tier: master-1
+- role: control-plane
+  image: kindest/node:v1.33.1
+  labels:
+    tier: master-2
+- role: control-plane
+  image: kindest/node:v1.33.1
+  labels:
+    tier: master-3
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-1
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-2
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-3
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-4
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-5
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-6
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-7
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-8
+- role: worker
+  image: kindest/node:v1.33.1
+  labels:
+    tier: worker-9

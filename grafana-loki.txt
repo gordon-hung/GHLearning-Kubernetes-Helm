@@ -1,0 +1,30 @@
+這些是 Grafana Loki 生態系統中的各個組件，每個 Pod 都有特定的功能，幫助實現日誌收集、儲存、查詢等不同的需求。以下是每個 Pod 的簡單介紹：
+
+1. **grafana-loki-compactor**  
+   這個服務負責處理 Loki 的日誌資料的壓縮與合併。Loki 在儲存日誌時會分成很多小檔案，而隨著時間的推移，這些小檔案會不斷累積，可能導致儲存的浪費。`compactor` 的作用就是合併這些小檔案，減少磁碟使用。
+
+2. **grafana-loki-distributor**  
+   `distributor` 是處理資料進來的主要服務，它負責將來自多個來源的日誌資料進行分配，並將它們儲存到適當的儲存後端。當你將日誌資料傳送到 Loki 時，這個 Pod 會把資料分發給適當的後端來處理。
+
+3. **grafana-loki-gateway**  
+   這是用於處理從外部來的請求的網關服務。通常是讓 Grafana 或其他客戶端應用程式可以透過它來查詢 Loki 中的日誌。它幫助將查詢請求路由到正確的服務。
+
+4. **grafana-loki-ingester**  
+   `ingester` 負責處理來自 `distributor` 分發過來的日誌資料。它將日誌資料寫入到 Loki 的儲存系統中。每個 `ingester` 會儲存一段時間的資料，並處理與儲存相關的任務。
+
+5. **grafana-loki-memcachedchunks**  
+   這個服務與 Loki 的儲存系統有關，它利用 Memcached 作為快取系統，來加速日誌資料的讀取。這樣做的目的是提高查詢性能，因為 Memcached 可以快速地提供儲存的資料。
+
+6. **grafana-loki-memcachedfrontend**  
+   這部分是與 Memcached 相關的前端服務，它負責處理與 Memcached 進行互動的操作，提供一些更高層的 API 來操作快取資料，協調資料流的進出。
+
+7. **grafana-loki-promtail**  
+   `promtail` 是一個用來收集、標記和發送日誌到 Loki 的代理程式。它會從各種資料來源（如檔案系統或標準輸出）收集日誌資料，並將它們發送給 Loki。它的功能很像是 "log shipper"。
+
+8. **grafana-loki-querier**  
+   `querier` 是負責處理來自用戶端（如 Grafana）的查詢請求的服務。當用戶查詢 Loki 中的日誌時，`querier` 負責檢索儲存的資料並回應查詢結果。
+
+9. **grafana-loki-query-frontend**  
+   `query-frontend` 是一個介於使用者的查詢請求和實際的查詢處理器（`querier`）之間的中介服務。它負責負載平衡查詢請求，將查詢請求分發給多個 `querier` 節點，並幫助提高查詢的效能和可擴展性。
+
+這些組件共同合作，幫助 Loki 實現高效能的日誌收集、儲存和查詢系統，適合大規模日誌資料的處理。

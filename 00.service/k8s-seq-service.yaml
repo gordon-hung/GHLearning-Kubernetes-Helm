@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-seq-service
+spec:
+  type: ExternalName
+  externalName: seq.infra.svc.cluster.local # 指向 infra 命名空間中的 seq 服務
+  ports:
+    - port: 5341                  # 指定你希望訪問的端口（這是 dev 命名空間中代理服務的端口）
+      targetPort: 5341            # 指定要轉發到的目標端口（這是 infra 命名空間中的 seq 服務的端口）
+      protocol: TCP
