@@ -59,3 +59,10 @@ making it easier to debug autoscaling pipelines.
 ```
 kubectl apply -f .\high-availability-1.21+.yaml
 ```
+
+## kubectl top pod
+
+```
+kubectl top pod -n kube-system 
+```
+![image](https://github.com/gordon-hung/GHLearning-Kubernetes-Helm/tree/master/kubernetes-metrics-server/Images/kubectl_top_pod.png)
