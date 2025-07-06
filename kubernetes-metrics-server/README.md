@@ -65,4 +65,4 @@ kubectl apply -f .\high-availability-1.21+.yaml
 ```
 kubectl top pod -n kube-system 
 ```
-![image](https://github.com/gordon-hung/GHLearning-Kubernetes-Helm/tree/master/kubernetes-metrics-server/Images/kubectl_top_pod.png)
+![image](https://github.com/gordon-hung/GHLearning-Kubernetes-Helm/blob/master/kubernetes-metrics-server/Images/kubectl_top_pod.png)
